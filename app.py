@@ -25,9 +25,18 @@ def get_diaries():
     return jsonify(diaries)
 
 # 主頁面
+@app.route('/Question')
+def question():
+    return render_template('Question.html')
+
+@app.route('/Dairy')
+def dairy():
+    return render_template('Dairy.html')
+
 @app.route('/')
 def index():
-    return render_template('Question.html')
+    return render_template('Hi')
+
 
 if __name__ == '__main__':
     db.create_tables()  # 創建資料表

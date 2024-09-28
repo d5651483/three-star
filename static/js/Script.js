@@ -1,31 +1,4 @@
-// 獲取今天的問題
-function getQuestion() {
-    fetch('/get-question')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('question').innerText = data.question; // 顯示今天的問題
-        })
-        .catch(error => {
-            console.error('Error fetching question:', error); // 錯誤處理
-        });
-}
 
-// 提交每日問題的回答
-function submitQuestionAnswer() {
-    let questionAnswer = document.getElementById('return').value; // 獲取回答
-    
-    if (questionAnswer.trim() === "") {
-        return; // 如果回答為空，直接返回
-    }
-
-    // 將回答填入到日記的回答欄位中
-    let diaryEntry = document.getElementById('diaryEntry');
-    diaryEntry.value = questionAnswer + "\n" + diaryEntry.value; // 將問題回答放在日記的最上方
-    document.getElementById('return').value = ''; // 清空每日問題的回答框
-
-    // 跳轉到 Dairy.html
-    window.location.href = "Dairy.html"; // 將頁面導向日記頁面
-}
 
 // 提交日記
 document.getElementById('diaryForm').addEventListener('submit', function (e) {
@@ -72,5 +45,4 @@ function getDiaries() {
 }
 
 // 初始加載
-getQuestion(); // 獲取今天的問題
 getDiaries(); // 獲取所有日記
