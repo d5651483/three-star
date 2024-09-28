@@ -1,32 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-Hant"> <!-- 使用繁體中文 -->
 <head>
-    <meta charset="UTF-8"> <!-- 設定字符編碼 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 設定響應式視窗 -->
+    <meta charset="UTF-8"> <!-- 設定字符編碼為 UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 設定響應式視窗以適應不同設備 -->
     <title>D.I.D 地平線 | 三星創業競賽</title> <!-- 頁面標題 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> <!-- 引入外部 CSS 樣式表 -->
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script> <!-- 引入外部 JavaScript 檔案 -->
+    <script src="{{ url_for('static', filename='js/Scripts.js') }}"></script> <!-- 引入外部 JavaScript 檔案 -->
 </head>
 <body>
-    <!-- 標題區域 -->
-    <div class="headTitle">
-        <span id="mainTitle">D.I.D 地平線</span> <!-- 主要標題 -->
-        <span id="secondTitle">Do It, Dreamers</span> <!-- 副標題 -->
-    </div>
-
-    <!-- 內容區域 -->
-    <div class="wrapper shared-wrapper">
-        <!-- 問題顯示區域 -->
-        <div class="questionSpace">
-            <span class="questionTitle">今日問題：</span> <!-- 問題標題 -->
-            <span id="question">今天天氣如何</span> <!-- 顯示的問題 -->
-        </div>
-
-        <!-- 回答輸入區域 -->
-        <div class="returnSpace">
-            <input type="return" id="return" placeholder="你的回答..." autocomplete="off"> <!-- 用戶輸入回答的框 -->
-            <button type="button" onclick="submitQuestionAnswer()">提交問題回答</button> <!-- 提交按鈕 -->
-        </div>
-    </div>
+    hi <!-- 頁面內容，當前為簡單的文本 -->
 </body>
 </html>

@@ -4,8 +4,9 @@
     <meta charset="UTF-8"> <!-- 設定字元編碼為 UTF-8 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 使頁面在不同設備上響應良好 -->
     <title>D.I.D 地平線 | 三星創業競賽</title> <!-- 頁面標題 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> <!-- 引入外部 CSS 樣式表 -->
-    <script src="{{ url_for('static', filename='js/Dairy.js') }}"></script> <!-- 引入外部 JavaScript 檔案 -->
+    <!-- 引入外部 CSS 樣式表 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Dairy.css') }}"> 
 </head>
 <body>
     <!-- 標題區域 -->
@@ -13,14 +14,15 @@
         <span id="mainTitle">D.I.D 地平線</span> <!-- 主要標題 -->
         <span id="secondTitle">Do It, Dreamers</span> <!-- 副標題 -->
     </div>
-
+    
     <!-- 內容區域 -->
-    <div class="wrapper-dairy shared-wrapper">
+    <div class="wrapper">
         <form id="diaryForm"> <!-- 加入一個表單，並給它一個 ID -->
-            <textarea id="diaryEntry" placeholder="寫下你的日記..." ></textarea> <!-- 日記輸入框 -->
+            <textarea id="diaryEntry" placeholder="寫下你的日記..."></textarea> <!-- 日記輸入框 -->
             <button type="submit">提交日記</button> <!-- 提交日記的按鈕 -->
         </form>
         <div id="diaries"></div> <!-- 日記顯示區域 -->
     </div>
+    <script src="{{ url_for('static', filename='js/Dairy.js') }}"></script> <!-- 引入外部 JavaScript 檔案 -->
 </body>
 </html>

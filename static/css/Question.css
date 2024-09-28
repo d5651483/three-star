@@ -1,0 +1,65 @@
+/* 專用於 .wrapper 的樣式 */
+.wrapper {
+    padding: 20px 35px; /* 內部邊距 */
+    width: 90%; /* 寬度設置為 90% */
+    backdrop-filter: blur(4px); /* 背景模糊效果 */
+    -webkit-backdrop-filter: blur(4px); /* Safari 背景模糊效果 */
+    background: rgba(255, 255, 255, 0.30); /* 背景顏色 */
+    border: 1px solid rgba(255, 255, 255, 0.01); /* 邊框 */
+    border-radius: 16px; /* 圓角 */
+    box-shadow: 0 4px 30px rgba(35, 35, 35, 0.1); /* 陰影效果 */
+    color: #232323; /* 字體顏色 */
+    margin-top: 80px; /* 上邊距，讓內容不會被標題覆蓋 */
+}
+
+/* 問題區域樣式 */
+.questionSpace {
+    padding: 20px; /* 內部邊距 */
+    display: flex; /* 使用彈性布局 */
+    margin-bottom: 20px; /* 下邊距 */
+    backdrop-filter: blur(5.5px); /* 背景模糊效果 */
+    -webkit-backdrop-filter: blur(5.5px); /* Safari 背景模糊效果 */
+    background: rgba(255, 255, 255, 0.5); /* 背景顏色 */
+    border: 1px solid rgba(255, 255, 255, 0.01); /* 邊框 */
+    border-radius: 16px; /* 圓角 */
+    box-shadow: 0 4px 30px rgba(35, 35, 35, 0.1); /* 陰影效果 */
+    color: #232323; /* 字體顏色 */
+    overflow: auto; /* 溢出處理 */
+}
+
+/* 返回區域樣式 */
+.returnSpace {
+    display: flex; /* 使用彈性布局 */
+    align-items: center; /* 垂直置中對齊 */
+    padding: 10px; /* 內部邊距 */
+    background: rgba(255, 255, 255, 0.8); /* 背景顏色 */
+    border-radius: 8px; /* 圓角 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 陰影效果 */
+}
+
+/* 返回區域輸入框樣式 */
+.returnSpace input[type="return"] {
+    flex: 1; /* 佔據剩餘空間 */
+    margin-left: 10px; /* 左邊距 */
+    padding: 10px; /* 內部邊距 */
+    border: 1px solid #ccc; /* 邊框 */
+    border-radius: 4px; /* 圓角 */
+}
+
+/* 按鈕樣式 */
+.returnSpace button,
+button {
+    padding: 10px 15px; /* 內部邊距 */
+    background-color: #6f88b7; /* 按鈕背景色 */
+    color: white; /* 按鈕字體顏色 */
+    border: none; /* 無邊框 */
+    border-radius: 4px; /* 圓角 */
+    cursor: pointer; /* 鼠標指針樣式 */
+    transition: background-color 0.3s; /* 背景色過渡效果 */
+}
+
+/* 按鈕懸停效果 */
+.returnSpace button:hover,
+button:hover {
+    background-color: #4a6478; /* 懸停時背景色 */
+}
