@@ -27,7 +27,7 @@ function fetchDiaries() {
 }
 
 // 將資料顯示
-function dairyShower(data){
+function dairyShower(data) {
 
   const diaryContainer = document.getElementById('diary-container');
   diaryContainer.innerHTML = ''; // 清空之前的內容
@@ -56,6 +56,7 @@ function dairyShower(data){
       <div class="question-answer">最感激的事: ${answers[1] || '未回答'}</div>
       <div class="question-answer">做得很棒的事: ${answers[2] || '未回答'}</div>
     `;
+    
     diaryContainer.appendChild(diaryEntry);
 
   });
