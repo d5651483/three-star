@@ -57,7 +57,7 @@ class DiaryManager(Manager):
 
     # 取得日記
     def get_all_diaries(self):
-        """取得所有日記"""
+
         conn = self.connect_db()
         cursor = conn.cursor()
         
@@ -65,9 +65,19 @@ class DiaryManager(Manager):
         diaries = cursor.fetchall()
         
         conn.close()
+
         return diaries
 
 class QuestManager(Manager):
+
+    questions = [
+        "今天有什麼特別的事情發生嗎？",
+        "描述一下今天的心情。",
+        "今天學到了什麼新知識？",
+        "今天做了什麼讓你感到驕傲的事？",
+        "今天有什麼挑戰？你是如何應對的？",
+        "三件你一想到就會微笑的事情？"
+    ]
 
     def __init__(self):
         super().__init__(
@@ -83,14 +93,7 @@ class QuestManager(Manager):
 
     # 自動生成隨機問題
     def generate_daily_question(self):
-        questions = [
-            "今天有什麼特別的事情發生嗎？",
-            "描述一下今天的心情。",
-            "今天學到了什麼新知識？",
-            "今天做了什麼讓你感到驕傲的事？",
-            "今天有什麼挑戰？你是如何應對的？",
-            "三件你一想到就會微笑的事情？"
-        ]
+
         today = datetime.now().strftime('%Y-%m-%d')
         conn = self.connect_db()
         cursor = conn.cursor()
@@ -101,12 +104,29 @@ class QuestManager(Manager):
 
         # 如果今天沒有問題，則生成一個新的問題
         if not question:
-            random_question = random.choice(questions)
+
+            random_question = random.choice(self.questions)
             cursor.execute("INSERT INTO daily_questions (question, date) VALUES (?, ?)", (random_question, today))
             conn.commit()
             question = {'question': random_question, 'date': today}
+
         else:
+
             question = {'question': question['question'], 'date': question['date']}
         
         conn.close()
+
         return question
+    
+    # 取得問題
+    def get_all_question(self):
+
+        conn = self.connect_db()
+        cursor = conn.cursor()
+        
+        cursor.execute('SELECT * FROM diaries ORDER BY created_at DESC') # 按照創建時間排序
+        questions = cursor.fetchall()
+        
+        conn.close()
+
+        return questions
