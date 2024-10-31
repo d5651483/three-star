@@ -40,3 +40,56 @@ document.getElementById('diary-form').addEventListener('submit', async function(
         console.error('Error:', error); // 捕捉錯誤並輸出
     }
 });
+
+// 顯示即時時間
+function updateTime() {
+    // 取得當前時間
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+
+    // 時間格式補零
+    if (hours < 10) {
+        hours = '0' + hours;
+    }
+    if (minutes < 10) {
+        minutes = '0' + minutes;
+    }
+
+    // 顯示格式 例如: 13:14
+    const currentTime = hours + ':' + minutes;
+
+    // 更新網頁上的時間顯示
+    document.getElementById('currentTime').textContent = currentTime;
+}
+
+// 顯示日期
+function updateDate() {
+    const dateElement = document.getElementById('currentDate');
+    const date = new Date();
+
+    const year = date.getFullYear();
+    const months = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."];
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+
+    let daySuffix;
+    if (day === 1 || day === 21 || day === 31) {
+        daySuffix = 'st';
+    } else if (day === 2 || day === 22) {
+        daySuffix = 'nd';
+    } else if (day === 3 || day === 23) {
+        daySuffix = 'rd';
+    } else {
+        daySuffix = 'th';
+    }
+
+    const formattedDate = `${year} ${month} ${day}${daySuffix}`;
+    dateElement.textContent = formattedDate;
+
+    setInterval(updateTime, 1000);
+
+    updateTime();
+}
+
+window.onload = updateDate;
