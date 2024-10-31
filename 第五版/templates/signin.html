@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signin.css') }}">
+    <title>signin page</title>
+</head>
+
+<body>
+    
+    <div class="headTitle">
+        <span id="mainTitle">D.I.D 地平線</span> <!-- 主要標題 -->
+        <span id="secondTitle">Do It, Dreamers</span> <!-- 副標題 -->
+    </div>
+    
+    <div class="Oval"></div> <!-- 標題下的線 -->
+        
+    <div class="SigninSpace"> <!-- 輸入區塊 -->
+        <div class="SigninTittle"> <!-- 登入標題 -->
+        登入
+        </div>
+        <div class="PersonalData">
+            <section class="PersonalData Mail"> <!-- 電子信箱輸入欄 -->
+            電子信箱
+            <input type="Mail" id="mail" name="mail" required>
+            </section>
+
+            <section class="PersonalData Password"> <!-- 密碼輸入欄 -->
+            密碼
+            <input type="Password" id="password" name="password" required>
+            </section>
+                    
+            <button class="SigninButton" type="button" onclick="signinAnswer()"> <!-- 登入按鈕 -->
+                <img src="static/images/登入按鈕.png" alt="" />
+            </button>
+        </div>  
+    </div>
+</body>
+</html>

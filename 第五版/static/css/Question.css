@@ -1,0 +1,93 @@
+#mainTitle {
+    color: #5d6c89; /* 字體顏色 */
+}
+/* 主體樣式 */
+body{
+    display: flex; /* 使用彈性布局 */
+    flex-direction: column; /* 垂直排列 */
+    justify-content: center; /* 水平置中 */
+    background:#f2f3fa;/* 背景色 */
+}
+/* 半圓樣式 */
+.circle {
+    width: 100vw; /* 寬度與視窗一致 */
+    height: 100vw; /* 高度與寬度一致，保持圓形比例 */
+    background-color: #5d6c89; /* 背景顏色 */
+    border-radius: 50%; /* 讓元素變成圓形 */
+    position: fixed; /* 固定在頁面底部 */
+    bottom: -60vw; /* 讓圓形的下半部分超出可見範圍，形成半圓效果 */
+    
+}
+/* 問題區域樣式 */
+.questionSpace {
+    display: flex; /* 使用彈性布局 */
+    justify-content: center; /* 水平置中 */
+    margin: 160px auto 30px auto; /* 下邊距 */
+    font-family: '源柔';
+    font-size: 30px;
+    color: #f2f3fa; /* 字體顏色 */
+}
+
+/* 輸入區域樣式 */
+.returnSpace {
+    display: flex;
+    justify-content: center; /* 水平置中 */
+}
+
+/* 輸入框樣式 */
+.returnSpace input[type="return"] {
+    width: 600px; /* 固定寬度 */
+    height: 50px;
+    border:none;
+    padding: 10px; /* 內部邊距 */
+    background-color: #5d6c89; /* 輸入框背景色 */
+    border-top-left-radius: 20px; /* 左上圓角 */
+    border-bottom-left-radius: 20px; /* 左下圓角 */
+    border: 1px solid #f2f3fa; /* 邊框 */
+    border-right: none; /* 去除右邊框 */
+    font-family: '源柔';
+    color:#f2f3fa ;
+    font-size: 20px;
+}
+/* 設定輸入框內文字的顏色 */
+.returnSpace input::placeholder {
+    color:#f2f3fa ;
+}
+
+/* 按鈕樣式 */
+.returnSpace button,
+button {
+    padding: 10px 15px; /* 內部邊距 */
+    background-color: #91a1bf; /* 按鈕背景色 */
+    border-radius: 20px; /* 圓角 */
+    border: 1px solid #f2f3fa; /* 邊框 */
+    cursor: pointer; /* 鼠標指針樣式 */
+    font-family: '源柔';
+    font-size: 20px;
+    color: #f2f3fa; /* 按鈕字體顏色 */
+}
+
+.Oval {
+    width: 1200px; /* 設定寬度（大於高度） */
+    height: 5px; /* 設定高度 */
+    background-color: #f2f3fa; /* 設定背景顏色 */
+    border-radius: 100%; /* 圓角 */
+    margin: 170px auto 0 auto; /* 上下間距 */
+}
+
+.headerContainer {
+    display: flex; /* 使用彈性布局 */
+    justify-content: space-between; /* 將內容分散對齊 */
+    align-items: center; /* 垂直居中對齊 */
+    margin: 30px 170px 0px 170px; /* 可以調整整個容器的邊距 */
+    font-size: 30px;
+    color: #f2f3fa; /* 可根據需要調整顏色 */
+    font-family: '源柔'; /* 字體 */
+    letter-spacing: 5px; /* 字母之間的間距 */
+}
+.dateDisplay {
+    text-align: left; 
+}
+.timeDisplay {
+    text-align: right;
+}

@@ -1,0 +1,79 @@
+/* 標題區域 */
+.headTitle {
+    color: #5d6c89;
+}
+
+body {
+    font-family: '源柔', sans-serif;
+    background-color: #f2f3fa;
+    width: 100%;
+}
+h1 {
+    color: #5d6c89;
+}
+.container {
+    display: flex; /* 使用 Flexbox 進行排列 */
+    justify-content: space-between; /* 讓子元素分開，左右對齊 */
+    margin: 10px 40px;
+}
+.AddDiary {
+    background-color: transparent; /* 移除背景色 */
+    border: none; /* 移除邊框 */
+    padding: 0; /* 移除內邊距 */
+    margin: 0; /* 移除外邊距 */
+}
+
+#add-diary-button {
+    width: 20vw; /* 設定圖片寬度，根據需要調整 */
+    height: auto; /* 自動調整高度以保持比例 */
+    margin-right: auto; /* 讓按鈕貼到左側 */
+
+}
+#add-diary-button:hover {
+    transform: scale(1.05); /* 懸停時稍微放大 */
+}
+/* 日記區塊 */
+.diary-entry {
+    background-color: #dee3ee;
+    border-radius: 30px;
+    padding: 15px;
+    margin-bottom: 20px;
+    width: 70vw;
+    height: auto;
+    white-space: normal;
+    overflow: visible;
+    margin-left: auto; /* 讓日記貼到右側 */
+}
+.date {
+    font-size: 16px; /* 字體大小 */
+    color: #5d6c89; 
+    margin: 0; /* 取消邊距 */
+    padding: 5px 0; /* 增加上下內邊距 */
+    border-bottom: 1px solid #ddd; /* 添加底部邊框 */
+    text-align: center; /* 置中對齊 */
+    font-family: '源柔', sans-serif; /* 字體設置 */
+}
+
+/* 日記標題 */
+.entry-title {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #5d6c89;
+}
+/* 日記內文 */
+p {
+    color: #5d6c89; /* 字體顏色 */
+    font-size: 16px;
+    line-height:30px
+}
+/* 問題回答 */
+.question-answer {
+    margin-top: 15px;
+    color: #91a1bf;
+}
+
+#loading {
+    color: #5d6c89;
+    font-size: 1.2em;
+    display: none; /* 初始隱藏 */
+}
