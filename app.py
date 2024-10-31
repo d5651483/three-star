@@ -1,18 +1,19 @@
 from flask import Flask, request, jsonify, render_template
 from db import DiaryManager, QuestManager
 
+# 建立 Flask 應用
+app = Flask(__name__)
+
 # 建立 Manager 實例
 diary_manager = DiaryManager()
 quest_manager = QuestManager()
 
-# 建立 Flask 應用
-app = Flask(__name__)
-
 # 獲取今天的問題
 @app.route('/get-question', methods=['GET'])
 def get_question():
-    """返回今天的問題"""
+
     question = quest_manager.generate_daily_question()
+
     return jsonify(question)
 
 # 新增日記
@@ -72,56 +73,33 @@ def get_diaries_route():
     
     return jsonify(formatted_diaries)
 
-# 網頁的主畫面
-@app.route('/Homepage')
-def homepage():
-    return render_template('Homepage.html')
+# 路徑與 html 名稱
+routes_name = {
+    '/Homepage': 'Homepage.html',
+    '/Question': 'Question.html',
+    '/QuestionShow': 'QuestionShow.html',
+    '/DairyHome': 'DairyHome.html',
+    '/Dairy': 'Dairy.html',
+    '/signup': 'signup.html',
+    '/signin': 'signin.html',
+    '/DreamWeaverHome': 'DreamWeaverHome.html',
+    '/DreamWeaver': 'DreamWeaver.html',
+    '/': 'index.html'
+}
 
-# 顯示問題的頁面
-@app.route('/Question')
-def question():
-    return render_template('Question.html')
+# 定義路徑的函數
+def def_route(route, template):
 
-# 每日一問紀錄的頁面
-@app.route('/QuestionShow')
-def questionshow():
-    return render_template('QuestionShow.html')
+    def local_function():
+        return render_template(template)
+    
+    local_function.__name__ = f'route_{route.lstrip("/")}'
 
-# 顯示日記的主頁面
-@app.route('/DairyHome')
-def dairyhome():
-    return render_template('DairyHome.html')
+    app.route(route)(local_function)
 
-# 顯示日記頁面
-@app.route('/Dairy')
-def dairy():
-    return render_template('Dairy.html')
+# 定義路徑
+routes = [def_route(route, template) for route, template in routes_name.items()]
 
-# 顯示註冊的主頁面
-@app.route('/signup')
-def signup():
-    return render_template('signup.html')
-
-# 顯示登入的主頁面
-@app.route('/signin')
-def signin():
-    return render_template('signin.html')
-
-# 織夢機主頁
-@app.route('/DreamWeaverHome')
-def dreamweaverhome():
-    return render_template('DreamWeaverHome.html')
-
-# 織夢機頁面
-@app.route('/DreamWeaver')
-def dreamweaver():
-    return render_template('DreamWeaver.html')
-
-# 首頁
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-# 啟動應用
+# 啟動
 if __name__ == '__main__':
     app.run(debug=True)
