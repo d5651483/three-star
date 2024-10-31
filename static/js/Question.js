@@ -27,8 +27,8 @@ function submitQuestionAnswer() {
     // 將問題與回答存入 sessionStorage
     sessionStorage.setItem('question_and_answer', JSON.stringify(question_and_answer));
 
-    // 跳轉到 Dairy.html
-    window.location.href = "Dairy"; // 將頁面導向日記頁面
+    // 跳轉到 Homepage.html
+    window.location.href = "Homepage"; // 將頁面導向主頁面
 }
 
 // 初始加載

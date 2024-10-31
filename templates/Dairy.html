@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-Hant"> <!-- 設定語言為繁體中文 -->
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8"> <!-- 設定字元編碼為 UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 使頁面在不同設備上響應良好 -->
-    <title>D.I.D 地平線 | 三星創業競賽</title> <!-- 頁面標題 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日記</title>
     <!-- 引入外部 CSS 樣式表 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/Dairy.css') }}"> 
@@ -11,18 +11,109 @@
 <body>
     <!-- 標題區域 -->
     <div class="headTitle">
-        <span id="mainTitle">D.I.D 地平線</span> <!-- 主要標題 -->
-        <span id="secondTitle">Do It, Dreamers</span> <!-- 副標題 -->
+        <span id="mainTitle">D.I.D 地平線</span>
+        <span id="secondTitle">Do It, Dreamers</span>
     </div>
-    
+
     <!-- 內容區域 -->
-    <div class="wrapper">
-        <form id="diaryForm"> <!-- 加入一個表單，並給它一個 ID -->
-            <textarea id="diaryEntry" placeholder="寫下你的日記..."></textarea> <!-- 日記輸入框 -->
-            <button type="submit">提交日記</button> <!-- 提交日記的按鈕 -->
-        </form>
-        <div id="diaries"></div> <!-- 日記顯示區域 -->
-    </div>
-    <script src="{{ url_for('static', filename='js/Dairy.js') }}"></script> <!-- 引入外部 JavaScript 檔案 -->
+    <form id="diary-form">
+        <div class="diary-section">
+            <!-- 顯示當前時間的區域 -->
+            <div class="Time">
+                <span id="currentDate"></span>
+                <span id="currentTime"></span>
+            </div>
+                
+            <!-- 日記標題 -->
+            <input type="text" id="diary-title" placeholder="標題...">
+
+            <!-- 日記內容 -->
+            <textarea id="diary-content" rows="10" placeholder="輸入內容..."></textarea>
+
+            <!-- 儲存按鈕 -->
+            <button type="submit" onclick="SaveDiary()">儲存日記</button>
+        </div>
+        
+        <div class="question-section">
+            <h2>今天我...</h2>
+
+            <div class="question">
+                <label for="question1">最開心的事</label>
+                <textarea id="question1" placeholder="輸入內容..."></textarea>
+            </div>
+
+            <div class="question">
+                <label for="question2">最感激的事</label>
+                <textarea id="question2" placeholder="輸入內容..."></textarea>
+            </div>
+
+            <div class="question">
+                <label for="question3">做得很棒的事</label>
+                <textarea id="question3" placeholder="輸入內容..."></textarea>
+            </div>
+        </div>
+    </form>
+
+    <!-- 引入外部 JavaScript 檔案 -->
+    <script src="{{ url_for('static', filename='js/Dairy.js') }}"></script>
+    
+    <!-- 顯示日期 -->
+    <script> 
+        function updateDate() {
+            const dateElement = document.getElementById('currentDate');
+            const date = new Date();
+
+            const year = date.getFullYear();
+            const months = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."];
+            const month = months[date.getMonth()];
+            const day = date.getDate();
+
+            let daySuffix;
+            if (day === 1 || day === 21 || day === 31) {
+                daySuffix = 'st';
+            } else if (day === 2 || day === 22) {
+                daySuffix = 'nd';
+            } else if (day === 3 || day === 23) {
+                daySuffix = 'rd';
+            } else {
+                daySuffix = 'th';
+            }
+
+            const formattedDate = `${year} ${month} ${day}${daySuffix}`;
+            dateElement.textContent = formattedDate;
+        }
+
+        window.onload = updateDate;
+    </script>
+    
+    <!-- 顯示即時時間 -->
+    <script>
+        function updateTime() {
+            // 取得當前時間
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+
+            // 時間格式補零
+            if (hours < 10) {
+                hours = '0' + hours;
+            }
+            if (minutes < 10) {
+                minutes = '0' + minutes;
+            }
+
+            // 顯示格式 例如: 13:14
+            const currentTime = hours + ':' + minutes;
+
+            // 更新網頁上的時間顯示
+            document.getElementById('currentTime').textContent = currentTime;
+        }
+
+        // 每秒更新一次時間
+        setInterval(updateTime, 1000);
+
+        // 頁面載入時先顯示一次時間
+        updateTime();
+    </script>
 </body>
 </html>

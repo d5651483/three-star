@@ -1,3 +1,27 @@
+/* 滑油字 */
+@font-face {
+    font-family: '滑油字';
+    src: url('../fonts/WD-XL滑油体TC.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 沈魚落雁體 */
+@font-face {
+    font-family: '沈魚落雁體';
+    src: url('../fonts/ChenYuluoyan-Thin.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 源柔體 */
+@font-face {
+    font-family: '源柔';
+    src: url('../fonts/GenJyuuGothic-Medium.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* 根元素樣式 */
 html {
     box-sizing: border-box; /* 設定邊框盒模型 */
@@ -12,50 +36,27 @@ html {
     margin: 0; /* 清除外邊距 */
     padding: 0; /* 清除內邊距 */
 }
-
-/* 主體樣式 */
-body {
-    align-items: center; /* 垂直置中對齊 */
-    background: linear-gradient(0deg, #bed2e7, #6f88b7); /* 背景漸變色 */
-    display: flex; /* 使用彈性布局 */
-    flex-direction: column; /* 垂直排列 */
-    justify-content: center; /* 垂直置中對齊 */
-    height: 100%; /* 設定高度為 100% */
-    font-family: 'Dosis', sans-serif; /* 設定字體 */
-    font-display: swap; /* 字體顯示模式 */
+.headTitle{
+    text-align: center; /* 使內部的文字置中 */
+    margin-top: 20px; /* 添加一些上邊距 */
+    margin-bottom: 20px;
 }
-
-/* 標題區域樣式 */
-.headTitle {
-    position: fixed; /* 固定位置 */
-    top: 0; /* 距離頂部 0 */
-    padding: 20px; /* 內部邊距 */
-    display: flex; /* 使用彈性布局 */
-    justify-content: space-between; /* 兩側對齊 */
-    align-items: center; /* 垂直置中對齊 */
-    margin-top: 20px; /* 上邊距 */
-
-    backdrop-filter: blur(5.5px); /* 背景模糊效果 */
-    -webkit-backdrop-filter: blur(5.5px); /* Safari 背景模糊效果 */
-    background: rgba(255, 255, 255, 0.5); /* 背景顏色 */
-    border: 1px solid rgba(255, 255, 255, 0.01); /* 邊框 */
-    border-radius: 16px; /* 圓角 */
-    box-shadow: 0 4px 30px rgba(35, 35, 35, 0.1); /* 陰影效果 */
-    color: #232323; /* 字體顏色 */
-    overflow: auto; /* 溢出處理 */
-}
-
 /* 主要標題樣式 */
 #mainTitle {
-    margin-right: 10px; /* 右邊距 */
-    font-size: 24px; /* 字體大小 */
-    font-weight: bold; /* 字體粗細 */
+    font-size: 37px; /* 字體大小 */
+    font-weight: normal; /* 字體粗細 */
+    letter-spacing: 5px; /* 字母之間的間距設置*/
+    font-family: '滑油字';
+    margin: 3px 15px px auto;
 }
 
 /* 副標題樣式 */
 #secondTitle {
-    margin-top: auto; /* 自動上邊距以推到底部 */
-    font-size: 18px; /* 字體大小 */
+    font-size: 24px; /* 字體大小 */
     font-weight: normal; /* 字體粗細 */
-    color: #8a8419; /* 字體顏色 */
+    color: #fad02c; /* 字體顏色 */
+    white-space: nowrap; /* 防止換行 */
+    overflow: hidden; /* 隱藏溢出的文本（如果有的話） */
+    text-overflow: ellipsis; /* 在文本溢出時顯示省略號 */
+    font-family: '沈魚落雁體';
 }
