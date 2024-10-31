@@ -80,10 +80,23 @@ class QuestManager(Manager):
     ]
 
     def __init__(self):
+
         super().__init__(
-            "Quest.db", 
+            "Question.db", 
             '''
-            CREATE TABLE IF NOT EXISTS daily_questions (
+            CREATE TABLE IF NOT EXISTS questions (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                question TEXT NOT NULL,
+                answer TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+            '''
+            )
+        
+        self.quest_record = Manager(
+            "Quest_Record.db", 
+            '''
+            CREATE TABLE IF NOT EXISTS quest_record (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 question TEXT NOT NULL,
                 date DATE NOT NULL
@@ -91,22 +104,28 @@ class QuestManager(Manager):
             '''
             )
 
+
     # 自動生成隨機問題
     def generate_daily_question(self):
 
         today = datetime.now().strftime('%Y-%m-%d')
-        conn = self.connect_db()
+        conn = self.quest_record.connect_db()
         cursor = conn.cursor()
 
         # 檢查今天是否已有問題
-        cursor.execute("SELECT * FROM daily_questions WHERE date = ?", (today,))
+        cursor.execute("SELECT * FROM quest_record WHERE date = ?", (today,))
         question = cursor.fetchone()
 
         # 如果今天沒有問題，則生成一個新的問題
         if not question:
 
             random_question = random.choice(self.questions)
-            cursor.execute("INSERT INTO daily_questions (question, date) VALUES (?, ?)", (random_question, today))
+
+            cursor.execute("""
+                INSERT INTO quest_record (question, date)
+                VALUES (?, ?)
+            """, (random_question, today))
+
             conn.commit()
             question = {'question': random_question, 'date': today}
 
@@ -118,13 +137,29 @@ class QuestManager(Manager):
 
         return question
     
+    # 新增問題
+    def add_question(self, question, answer):
+
+        conn = self.connect_db()
+        cursor = conn.cursor()
+        
+        cursor.execute(''' 
+            INSERT INTO questions (question, answer)
+            VALUES (?, ?)
+        ''', (question, answer))
+        
+        conn.commit()
+        conn.close()
+
+        return {"message": "問題已儲存！"}
+
     # 取得問題
     def get_all_question(self):
 
         conn = self.connect_db()
         cursor = conn.cursor()
         
-        cursor.execute('SELECT * FROM diaries ORDER BY created_at DESC') # 按照創建時間排序
+        cursor.execute('SELECT * FROM questions ORDER BY created_at DESC') # 按照創建時間排序
         questions = cursor.fetchall()
         
         conn.close()

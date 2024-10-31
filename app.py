@@ -9,12 +9,55 @@ diary_manager = DiaryManager()
 quest_manager = QuestManager()
 
 # 獲取今天的問題
-@app.route('/get-question', methods=['GET'])
-def get_question():
+@app.route('/genarate-question', methods=['GET'])
+def genarate_question():
 
     question = quest_manager.generate_daily_question()
 
     return jsonify(question)
+
+# 新增問題
+@app.route('/add-question', methods=['POST'])
+def add_question():
+
+    data = request.json
+
+    # 檢查 data
+    if data is None: return jsonify({"error": "No data received"}), 400
+
+    question = data.get('question')
+    answer = data.get('answer')
+
+    # 檢查 title and content
+    if not question or not answer: return jsonify({"error": "Title and content are required"}), 400
+
+    # 新增日記
+    quest_manager.add_question(
+        question,
+        answer
+    )
+
+    return jsonify({"message": "Question added successfully"}), 200
+
+@app.route('/get-questions', methods=['GET'])
+def get_question():
+
+    # 取得問題
+    questions = quest_manager.get_all_question()
+
+    # 轉成陣列
+    formatted_questions = [
+        {
+            'question' : question[1],
+            'answer' : question[2],
+            'created_at': question[3]
+        }
+        for question in questions
+    ]
+    
+    print(formatted_questions)
+
+    return jsonify(formatted_questions)
 
 # 新增日記
 @app.route('/add-diary', methods=['POST'])
@@ -76,7 +119,6 @@ def get_diaries_route():
 # 路徑與 html 名稱
 routes_name = {
     '/Homepage': 'Homepage.html',
-    '/Question': 'Question.html',
     '/QuestionShow': 'QuestionShow.html',
     '/DairyHome': 'DairyHome.html',
     '/Dairy': 'Dairy.html',
@@ -84,7 +126,7 @@ routes_name = {
     '/signin': 'signin.html',
     '/DreamWeaverHome': 'DreamWeaverHome.html',
     '/DreamWeaver': 'DreamWeaver.html',
-    '/': 'index.html'
+    '/': 'Question.html'
 }
 
 # 定義路徑的函數
