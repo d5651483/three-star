@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/DairyHome.css') }}"> 
+    <title>日記首頁</title>
+</head>
+<body>
+    
+    <!-- 標題區域 -->
+    <div class="headTitle">
+        <span id="mainTitle">D.I.D 地平線</span>
+        <span id="secondTitle">Do It, Dreamers</span>
+    </div>
+
+    <div class="container"><!-- 整體區塊的容器 -->
+        <div class="container2"><!-- 時間和新增日記按鈕區塊的容器 -->
+            <button class="AddDiary" type="button" onclick="AddDiary()">
+                <img id="add-diary-button" src="static/images/日記主頁新增日記按鈕 (1).png" />
+            </button>
+        </div>
+
+        <div id="loading">加載中...</div> <!-- 加載提示 -->
+        <div id="diary-container"></div>
+        
+    </div>
+    <script src="static/js/DairyHome.js" defer></script> <!-- 導入 JavaScript 檔案 -->
+</body>
+</html>

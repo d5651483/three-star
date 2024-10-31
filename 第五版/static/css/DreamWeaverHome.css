@@ -1,0 +1,28 @@
+body{
+    background-color: #5d6c89;
+    position: relative;
+    overflow: hidden;
+}
+.background{
+    position: absolute;
+    height: auto;
+    width: 101vw;
+    z-index: index -1;
+}
+.Send{
+    position: absolute; /* 使用絕對定位 */
+    cursor: pointer; /* 鼠標變為手型 */
+    background: transparent; /* 按鈕背景透明 */
+    border: none;
+    z-index: 1; /* 確保按鈕在背景之上 */
+    transition: transform 0.3s ease; /* 加入過渡效果 */
+}
+
+.Send:hover {
+    transform: scale(1.05); /* 懸浮時放大 */
+}
+.Send img {
+    width: 200px; /* 可根據需要調整按鈕圖片大小 */
+    height: auto; /* 確保按鈕圖片保持比例 */
+    margin:170px 0px 0px 150px;
+}

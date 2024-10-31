@@ -1,0 +1,76 @@
+
+/* 主體樣式 */
+body{
+    display: flex; /* 使用彈性布局 */
+    flex-direction: column; /* 垂直排列 */
+    justify-content: center; /* 水平置中 */
+    align-items: center;    /* 垂直置中 */
+    background: linear-gradient(0deg, #f2f3fa, #5d6c89); /* 背景漸變色 */
+}
+#mainTitle {
+    color: #f2f3fa; /* 字體顏色 */
+}
+/* 標題下的線 */
+.oval {
+    width: 1200px; /* 設定寬度（大於高度） */
+    height: 5px; /* 設定高度 */
+    background-color: #f2f3fa; /* 設定背景顏色 */
+    border-radius: 100%; /* 圓角 */
+    margin: 3px auto 70px auto;
+}
+
+/* 登入區域底框 */
+.signupSpace {
+    display: flex; /* 使用彈性盒佈局 */
+    flex-direction: column; /* 垂直排列 */
+    margin: 0px auto;
+    height: 500px; /* 高度 */
+    width: 600px; /* 設定固定寬度 */
+    padding: 40px 60px 0px 60px; /* 內邊距 */
+    background-color: #f2f3fa; /* 背景顏色 */
+    border-radius: 30px; /* 圓角 */
+}
+
+/* 註冊帳號字樣 */
+.signuptittle {
+    font-size: 30px; /* 標題字體大小 */
+    letter-spacing: 5px; /* 字母之間的間距設置*/
+    text-align: center; /* 標題居中 */
+    color: #5d6c89;
+    font-family: '源柔';
+    margin:0px auto 45px auto;
+}
+/* 個人資料字樣 */
+.personaldata {
+    display: flex; /* 使用彈性盒佈局 */
+    flex-direction: column; /* 垂直排列 */
+    color: #91a1bf;
+    font-family: '源柔';
+    font-size: 25px; /* 標題字體大小 */
+    
+}
+/* 個人資料字樣與輸入匡同行 */
+.personaldata section {
+    display: inline-block; /* 設置為 inline-block 使其在同一行 */
+    margin-bottom: 55px;
+}
+/* 輸入框 */
+.personaldata input {
+    width: 300px;
+    height: 40px;
+    padding: 10px; /* 內邊距 */
+    border: 1px solid #5d6c89; /* 邊框 */
+    border-radius: 50px; /* 圓角 */
+    float: right; 
+}
+/* 註冊鍵 */
+.signup {
+    width: 100px; /* 設定按鈕的寬度 */
+    height: 65px; /* 設定按鈕的高度 */
+    background-color: transparent; /* 設定背景顏色為透明 */
+    border: 0px solid #000;        /* 設定按鈕的邊框顏色 */
+    margin: 0 auto; /* 上下編距為0，自動左右置中 */
+    cursor: pointer; /* 鼠標指針樣式 */
+}
+
+

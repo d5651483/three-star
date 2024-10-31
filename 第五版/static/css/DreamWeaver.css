@@ -1,0 +1,67 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    background-color: #5d6c89;
+}
+.header img {
+    height: 220px;
+    width: 220px;
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    padding: 10px;
+    background-color: transparent;
+    text-align: center;
+}
+.chat-container {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #472b2b;
+    background-color: transparent;
+}
+
+.input-container {
+    display: flex;
+    padding: 10px;
+    width: 80vw; /* 您可以根據需要調整寬度 */
+    background-color: #b7becd;
+    border-radius: 50px;
+    margin: 20px auto; /* 水平置中並添加上下邊距 */
+}
+
+
+input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    font-family: '源柔';
+    color: #f2f3fa;
+    background-color: transparent; /* 設定背景顏色為透明 */
+    outline: none; /* 移除焦點時的邊框 */
+}
+
+input[type="text"]::placeholder {
+    color: #f2f3fa; /* 預設提示字顏色 */
+}
+
+button {
+    margin-right:5px;
+    border: none;
+    background-color: transparent; /* 確保按鈕背景透明 */
+    cursor: pointer; /* 游標變為手型 */
+    padding: 0; /* 去除按鈕內邊距 */
+    width: 40px; /* 調整按鈕寬度 */
+    height: 40px; /* 調整按鈕高度 */
+}
+
+button img {
+    width: 100%; /* 圖片寬度自適應按鈕 */
+    height: 100%; /* 圖片高度自適應按鈕 */
+    display: block; /* 確保圖片不留空白間隙 */
+}
+

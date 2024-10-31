@@ -1,0 +1,198 @@
+#mainTitle {
+    color: #5d6c89; /* 字體顏色 */
+}
+/* 按鈕容器 */
+.button-container {
+    position: absolute;
+    top: 20px; /* 調整按鈕的垂直位置 */
+    right: 20px; /* 調整按鈕的水平位置 */
+    display: flex;
+    gap: 10px; /* 按鈕之間的間距 */
+    z-index: 3;
+}
+
+/* 自定義按鈕樣式 */
+.custom-button1{
+    background-color: #fad02c; 
+    color: #f2f3fa;
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: '源柔';
+}
+.custom-button2{
+    background-color: none; 
+    color: #fad02c;
+    border: 5px;
+    border-color: #fad02c;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: '源柔';
+}
+
+.custom-button1:hover {
+    background-color: #b8991e; /* 懸停時變色 */
+}
+.custom-button2:hover {
+    color: #b8991e; /* 懸停時變色 */
+}
+
+/* 主體樣式 */
+body {
+    display: flex; /* 使用彈性布局 */
+    flex-direction: column; /* 垂直排列 */
+    justify-content: center; /* 垂直置中 */
+    align-items: center; /* 水平置中 */
+    background: #f2f3fa; /* 背景色 */
+}
+.background-image {
+    position: absolute; /* 使其絕對定位 */
+    width: 100%; /* 寬度100% */
+    height: auto; /* 高度自動調整 */
+    bottom: 0;
+    z-index: -1;
+}
+    
+/* 主要標題樣式 */
+.Title {
+    font-size: 37px; /* 字體大小 */
+    font-weight: normal; /* 字體粗細 */
+    color: #5d6c89; /* 字體顏色 */
+    letter-spacing: 5px; /* 字母之間的間距設置 */
+    font-family: '滑油字';
+    margin: 20px auto 20px auto;
+}
+
+    
+/* 基本樣式 */
+.slider {
+    overflow: hidden;
+    width: 100%; /* 根據需要設置寬度 */
+
+}
+    
+.slides {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+    
+.slide {
+    min-width: 100%; /* 每個幻燈片佔據全寬 */
+    background-size: cover;
+    background-position: center;
+    height: 200px; /* 根據需要設置高度 */
+}
+.slide img {
+    display: block; /* 讓圖片成為區塊元素 */
+    margin: 0 auto; /* 自動調整邊距以置中 */
+    border-radius: 25px;
+}
+    
+    
+    
+/* 橫幅箭頭樣式 */
+.arrow {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 50%;
+    background-color: #91a1bf;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    color: #f2f3fa;
+    transform: translateY(-50%); /* 垂直居中 */
+    z-index: 10; /* 確保這些元素在背景之上 */ 
+}
+    
+.left-arrow {
+    left: 300px;
+}
+    
+.right-arrow {
+    right: 300px;
+}
+    
+.arrow:hover {
+    background-color: #5d6c89; /* 鼠標懸停顏色 */
+}
+    
+.dot:hover {
+    background-color: #5d6c89; /* 鼠標懸停顏色 */
+}
+    
+/* 點的樣式 */
+.dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+    
+.dot {
+    height: 13px;
+    width: 13px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #91a1bf; /* 正常狀態顏色 */
+    cursor: pointer;
+}
+
+.active {
+    background-color: #5d6c89; /* 活動狀態顏色 */
+}
+
+/* 按鈕們 */
+/* 按鈕圖片的樣式 */
+.buttons img {
+    width: 400px; /* 設定圖片寬度 */
+    height: auto; /* 高度自動調整以保持比例 */
+    display: block; /* 確保圖片為塊級元素 */
+}
+
+/* 按鈕容器樣式 */
+.buttons {
+    display: flex; /* 使用 Flexbox */
+    justify-content: center; /* 水平居中 */
+}
+
+/* 按鈕樣式 */
+button {
+    background: none; /* 去掉按鈕的背景 */
+    border: none; /* 去掉按鈕的邊框 */
+    padding: 0; /* 去掉內邊距 */
+    cursor: pointer; /* 鼠標懸停時顯示指針 */
+}
+
+
+.DairyButton {
+    margin:0px ;
+}
+
+.DreamweaverButton {
+    margin:70px 40px 0px 40px ; /* 設定你的值 */
+}
+
+.popupButton {
+    margin:0px 0px 50px 0px ;
+}
+
+
+
+
+.slider, .buttons, .Title, .dots {
+    position: relative; /* 使這些元素的 z-index 生效 */
+    z-index: 1; /* 確保這些元素在背景之上 */ 
+}
+   
