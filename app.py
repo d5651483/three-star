@@ -132,16 +132,13 @@ routes_name = {
 # 定義路徑的函數
 def def_route(route, template):
 
-    def local_function():
-        return render_template(template)
+    def local_function() : return render_template(template)
     
     local_function.__name__ = f'route_{route.lstrip("/")}'
 
-    app.route(route)(local_function)
+    return local_function
 
-for route, template in routes_name.items():
-
-    def_route(route, template)
+for route, template in routes_name.items() : app.route(route)(def_route(route, template))
 
 # 啟動
 if __name__ == '__main__':
