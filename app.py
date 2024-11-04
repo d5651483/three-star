@@ -139,8 +139,9 @@ def def_route(route, template):
 
     app.route(route)(local_function)
 
-# 定義路徑
-routes = [def_route(route, template) for route, template in routes_name.items()]
+for route, template in routes_name.items():
+
+    def_route(route, template)
 
 # 啟動
 if __name__ == '__main__':
