@@ -123,3 +123,9 @@ function DreamweaverAnswer() {
 function popupAnswer() {    
     window.location.href = "QuestionShow"; // 將頁面導向織夢機主頁面
 }
+function signin() {    
+    window.location.href = "signin"; // 將頁面導向織夢機主頁面
+}
+function signup() {    
+    window.location.href = "signup"; // 將頁面導向織夢機主頁面
+}
