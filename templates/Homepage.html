@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Homepage.css') }}">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="static/css/Homepage.css">
     <title>Home Page</title>
 </head>
 <body>
@@ -26,13 +26,13 @@
         <button class="arrow left-arrow" onclick="prevSlide()">&#10094;</button>
         <div class="slides">
             <div class="slide">
-                <img src="{{ url_for('static', filename='images/主頁橫幅一.png') }}" alt="橫幅一">
+                <img src="static/images/主頁橫幅一.png" alt="橫幅一">
             </div>
             <div class="slide">
-                <img src="{{ url_for('static', filename='images/主頁橫幅二.png') }}" alt="橫幅二">
+                <img src="static/images/主頁橫幅二.png" alt="橫幅二">
             </div>
             <div class="slide">
-                <img src="{{ url_for('static', filename='images/主頁橫幅三.png') }}" alt="橫幅三">
+                <img src="static/images/主頁橫幅三.png" alt="橫幅三">
             </div>
         </div>
         <button class="arrow right-arrow" onclick="nextSlide()">&#10095;</button>
@@ -47,20 +47,20 @@
         
     <div class="buttons">
         <button class="DairyButton" type="button" onclick="DairyAnswer()">
-            <img src="{{ url_for('static', filename='images/主頁我的日記按鈕.png') }}" alt="我的日記按鈕"/>
+            <img src="static/images/主頁我的日記按鈕.png" alt="我的日記按鈕"/>
         </button>
     
         <button class="DreamweaverButton" type="button" onclick="DreamweaverAnswer()">
-            <img src="{{ url_for('static', filename='images/主頁織夢機按鈕.png') }}" alt="織夢機按鈕"/>
+            <img src="static/images/主頁織夢機按鈕.png" alt="織夢機按鈕"/>
         </button>
     
         <button class="popupButton" type="button" onclick="popupAnswer()">
-            <img src="{{ url_for('static', filename='images/主頁每日一問紀錄按鈕.png') }}" alt="每日一問紀錄按鈕"/>
+            <img src="static/images/主頁每日一問紀錄按鈕.png" alt="每日一問紀錄按鈕"/>
         </button>
     </div>
-    <img class="background-image" src="{{ url_for('static', filename='images/主頁背景圓點.png') }}" alt="主頁背景圓點">
+    <img class="background-image" src="static/images/主頁背景圓點.png" alt="主頁背景圓點">
     
-    <script src="{{ url_for('static', filename='js/Homepage.js') }}"></script> <!-- 引入外部 JavaScript 檔案 --> 
+    <script src="static/js/Homepage.js"></script> <!-- 引入外部 JavaScript 檔案 --> 
 
 </body>
 </html>

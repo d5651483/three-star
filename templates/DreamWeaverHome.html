@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>織夢機主頁</title>
     <!-- 引入外部 CSS 樣式表 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/DreamWeaverHome.css') }}"> 
+    <link rel="stylesheet" href="static/css/styles.css"> 
+    <link rel="stylesheet" href="static/css/DreamWeaverHome.css"> 
 </head>
 <body class="container">
     <img src="static/images/織夢機主頁背景圓點.png" class="background">
@@ -14,6 +14,7 @@
     <button class="Send" type="button" onclick="AddDreamWeaver()" > <!-- 新增按鈕 -->
         <img src="static/images/新增織夢機按鈕.png">
     </button>
-    <script src="static/js/DreamWeaverHome.js" defer></script> <!-- 導入 JavaScript 檔案 -->
+    
+    <script src="static/js/DreamWeaverHome.js"></script> <!-- 導入 JavaScript 檔案 -->
 </body>
 </html>

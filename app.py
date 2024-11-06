@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, render_template
 from db import DiaryManager, QuestManager
 
 # 建立 Flask 應用
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 # 建立 Manager 實例
 diary_manager = DiaryManager()
