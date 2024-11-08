@@ -141,5 +141,4 @@ def def_route(route, template):
 for route, template in routes_name.items() : app.route(route)(def_route(route, template))
 
 # 啟動
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == '__main__': app.run(debug=True)
