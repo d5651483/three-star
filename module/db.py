@@ -1,13 +1,17 @@
+import os
+import json
 import sqlite3
 from datetime import datetime
-import random
 
 class Manager:
 
     # 建立資料庫
     def __init__(self, db_name, rule):
 
-        self.db_name = db_name
+        db_path = "database"
+
+        self.db_name = os.path.join(db_path, db_name)
+
         conn = self.connect_db()
         cursor = conn.cursor()
         cursor.execute(rule)
@@ -17,7 +21,7 @@ class Manager:
     # 連接資料庫
     def connect_db(self):
         conn = sqlite3.connect(self.db_name)
-        conn.row_factory = sqlite3.Row  # 讓結果以字典格式返回 ***
+        conn.row_factory = sqlite3.Row  # 讓結果以字典格式返回
         return conn
 
 class DiaryManager(Manager):
@@ -66,65 +70,25 @@ class DiaryManager(Manager):
         
         conn.close()
 
-        return diaries
+        # 轉成陣列
+        formatted_diaries = [
+            {
+                'id': diary[0],
+                'title': diary[1],
+                'content': diary[2],
+                'answers': [
+                    diary[3] if diary[3] else '未回答',
+                    diary[4] if diary[4] else '未回答',
+                    diary[5] if diary[5] else '未回答'
+                ],
+                'created_at': diary[6]
+            }
+            for diary in diaries
+        ]
+
+        return formatted_diaries
 
 class QuestManager(Manager):
-
-    questions = [
-    "喜歡的興趣（含過往與現在）",
-    "令我恐懼的經驗？",
-    "什麼情況會造成我感到壓力？",
-    "我曾經有的壞習慣，但現在改變了？",
-    "印象最深刻的旅遊經驗？",
-    "我曾經錯過的機會？",
-    "令我後悔的決定？",
-    "最遺憾的經驗？",
-    "至今最滿意的成就？",
-    "我喜歡學習嗎？",
-    "最印象深刻的學習經驗？",
-    "我覺得工作是為了什麼？",
-    "遇過最大的挑戰？",
-    "放假時喜歡做的事情？",
-    "最喜歡去的地方？為什麼？",
-    "我最喜歡做的事？",
-    "我覺得我擅長做什麼？",
-    "我會如何形容自己的個性？",
-    "我很喜歡自己的哪些特質？",
-    "用三個詞形容自己",
-    "親情、友情、愛情，如何排序？",
-    "事業、家庭、個人，最重哪項？",
-    "我最討厭的事情？",
-    "我不擅長做什麼？",
-    "什麼情況會讓我感到焦慮、不安的情緒？",
-    "我一想到就會微笑的事情？",
-    "覺得很幸福的瞬間？",
-    "令我感到放鬆的時刻？",
-    "使我起床/讓我感到動力的原因？",
-    "我最在意的人、事、物？",
-    "曾經收過最滿意的禮物？",
-    "現在生活的環境中最喜歡/滿意的部分？",
-    "現在生活的環境中不喜歡/不滿意的部分？",
-    "如果不考慮成本及可行性，我現在最想做什麼？",
-    "如果明天是世界末日，我今天會想做什麼？",
-    "我希望十年後的我⋯⋯？",
-    "想像中30歲的生活？",
-    "想像中40歲的生活？",
-    "我希望改變自己或想練習的事情？",
-    "如果＿＿＿＿改變了，我會過得更好？",
-    "我通常在團隊中擔任的角色？",
-    "做過或覺得什麼樣的工作適合自己？",
-    "他人曾稱讚我做得好的事情？",
-    "他人曾批評過我的事情？",
-    "我認為我做得比他人好的事情？",
-    "我更擅長獨自工作還是與團體一起工作？",
-    "他人通常會如何形容我的個性？",
-    "用三個詞形容自己？",
-    "他人覺得我好/不好相處的原因？",
-    "我會用什麼顏色形容自己？",
-    "我覺得我最像什麼動物？為什麼？",
-    "我擅長與人相處嗎？"
-]
-
 
     def __init__(self):
 
@@ -150,7 +114,12 @@ class QuestManager(Manager):
             )
             '''
             )
+        
+        with open('static\question\question.json', 'r', encoding='utf-8') as file:
+            self.questions = json.load(file)
 
+        self.count_questions = len(self.questions)
+        self.start_date = datetime.strptime("2024-09-01", "%Y-%m-%d")
 
     # 自動生成隨機問題
     def generate_daily_question(self):
@@ -166,15 +135,17 @@ class QuestManager(Manager):
         # 如果今天沒有問題，則生成一個新的問題
         if not question:
 
-            random_question = random.choice(self.questions)
+            question_number = (self.start_date - today) % self.count_questions # 按照時間循環
+
+            ori_question = self.questions[str(question_number+1)]
 
             cursor.execute("""
                 INSERT INTO quest_record (question, date)
                 VALUES (?, ?)
-            """, (random_question, today))
+            """, (ori_question, today))
 
             conn.commit()
-            question = {'question': random_question, 'date': today}
+            question = {'question': ori_question, 'date': today}
 
         else:
 
@@ -211,4 +182,13 @@ class QuestManager(Manager):
         
         conn.close()
 
-        return questions
+        formatted_questions = [
+            {
+                'question' : question[1],
+                'answer' : question[2],
+                'created_at': question[3]
+            }
+            for question in questions
+        ]
+
+        return formatted_questions

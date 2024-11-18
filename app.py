@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
-from db import DiaryManager, QuestManager
+from module.db import DiaryManager, QuestManager
+from module.ai import AI_Manager
 
 # 建立 Flask 應用
 app = Flask(__name__, static_folder='static', template_folder='templates')
@@ -7,6 +8,7 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 # 建立 Manager 實例
 diary_manager = DiaryManager()
 quest_manager = QuestManager()
+ai_manager = AI_Manager()
 
 # 獲取今天的問題
 @app.route('/genarate-question', methods=['GET'])
@@ -39,25 +41,13 @@ def add_question():
 
     return jsonify({"message": "Question added successfully"}), 200
 
+# 取得問題紀錄
 @app.route('/get-questions', methods=['GET'])
 def get_question():
 
-    # 取得問題
     questions = quest_manager.get_all_question()
 
-    # 轉成陣列
-    formatted_questions = [
-        {
-            'question' : question[1],
-            'answer' : question[2],
-            'created_at': question[3]
-        }
-        for question in questions
-    ]
-    
-    print(formatted_questions)
-
-    return jsonify(formatted_questions)
+    return jsonify(questions)
 
 # 新增日記
 @app.route('/add-diary', methods=['POST'])
@@ -95,26 +85,17 @@ def get_diaries_route():
 
     # 取得日記
     diaries = diary_manager.get_all_diaries()
-
-    # print('All diaries:', diaries)  # 添加此行以檢查所有日記內容
-
-    # 轉成陣列
-    formatted_diaries = [
-        {
-            'id': diary[0],
-            'title': diary[1],
-            'content': diary[2],
-            'answers': [
-                diary[3] if diary[3] else '未回答',
-                diary[4] if diary[4] else '未回答',
-                diary[5] if diary[5] else '未回答'
-            ],
-            'created_at': diary[6]
-        }
-        for diary in diaries
-    ]
     
-    return jsonify(formatted_diaries)
+    return jsonify(diaries)
+
+# AI 回應
+@app.route('/get_response', methods=['POST'])
+def get_response():
+
+    user_input = request.json.get("user_input", "")
+    response = ai_manager.get_response(user_input)
+    
+    return jsonify(response)
 
 # 路徑與 html 名稱
 routes_name = {
@@ -139,46 +120,6 @@ def def_route(route, template):
     return local_function
 
 for route, template in routes_name.items() : app.route(route)(def_route(route, template))
-
-# 使用 OpenAI API 的參數
-OPENAI_API_KEY = 'your_openai_api_key'
-API_URL = 'https://api.openai.com/v1/chat/completions'
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/get_response', methods=['POST'])
-def get_response():
-    user_input = request.json.get("user_input", "")
-    
-    satir_prompt = f"""
-        Situation: The user asks: "{user_input}".
-        Attitude: Respond in an informative, engaging, and clear way.
-        Thinking: The aim is to ensure the user feels informed and satisfied with the response.
-        Intent: Generate a helpful and relevant answer.
-        Response:
-    """
-    
-    # 發送請求至 OpenAI API
-    headers = {
-        "Authorization": f"Bearer {OPENAI_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    
-    data = {
-        "model": "gpt-4",
-        "messages": [{"role": "user", "content": satir_prompt}]
-    }
-
-    response = request.post(API_URL, headers=headers, json=data)
-    response_json = response.json()
-    
-    if response.status_code == 200 and "choices" in response_json:
-        bot_response = response_json["choices"][0]["message"]["content"]
-        return jsonify({"response": bot_response})
-    else:
-        return jsonify({"response": "Sorry, I couldn't process your request."})
 
 # 啟動
 if __name__ == '__main__': app.run(debug=True)
