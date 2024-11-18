@@ -140,6 +140,46 @@ def def_route(route, template):
 
 for route, template in routes_name.items() : app.route(route)(def_route(route, template))
 
+# 使用 OpenAI API 的參數
+OPENAI_API_KEY = 'your_openai_api_key'
+API_URL = 'https://api.openai.com/v1/chat/completions'
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/get_response', methods=['POST'])
+def get_response():
+    user_input = request.json.get("user_input", "")
+    
+    satir_prompt = f"""
+        Situation: The user asks: "{user_input}".
+        Attitude: Respond in an informative, engaging, and clear way.
+        Thinking: The aim is to ensure the user feels informed and satisfied with the response.
+        Intent: Generate a helpful and relevant answer.
+        Response:
+    """
+    
+    # 發送請求至 OpenAI API
+    headers = {
+        "Authorization": f"Bearer {OPENAI_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    
+    data = {
+        "model": "gpt-4",
+        "messages": [{"role": "user", "content": satir_prompt}]
+    }
+
+    response = request.post(API_URL, headers=headers, json=data)
+    response_json = response.json()
+    
+    if response.status_code == 200 and "choices" in response_json:
+        bot_response = response_json["choices"][0]["message"]["content"]
+        return jsonify({"response": bot_response})
+    else:
+        return jsonify({"response": "Sorry, I couldn't process your request."})
+
 # 啟動
 if __name__ == '__main__':
     app.run(debug=True)

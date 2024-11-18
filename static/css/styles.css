@@ -48,6 +48,10 @@ html {
     letter-spacing: 5px; /* 字母之間的間距設置*/
     font-family: '滑油字';
     margin: 3px 15px px auto;
+    background-color: transparent;
+    color: #5d6c89;
+    padding: 0;
+    border: none;
 }
 
 /* 副標題樣式 */
@@ -59,4 +63,7 @@ html {
     overflow: hidden; /* 隱藏溢出的文本（如果有的話） */
     text-overflow: ellipsis; /* 在文本溢出時顯示省略號 */
     font-family: '沈魚落雁體';
+    background-color: transparent;
+    padding: 0;
+    border: none;
 }

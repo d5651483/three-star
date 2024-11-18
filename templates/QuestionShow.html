@@ -9,20 +9,15 @@
 </head>
 <body>
     <!-- 標題區域 -->
-     <div class="headTitle">
-        <span id="mainTitle">D.I.D 地平線</span>
-        <span id="secondTitle">Do It, Dreamers</span>
+    <div class="headTitle">
+        <button id="mainTitle" onclick="BackHome()">D.I.D 地平線</button> <!-- 主要標題 -->
+        <button id="secondTitle" onclick="BackHome()">Do It, Dreamers</button> <!-- 副標題 -->
     </div>
 
     <!-- 顯示紀錄區域 -->
-    <div class="question-container" id="question-container">
-        <div class="date-and-question">
-            <div class="date">2024 Sep. 8th</div> <!-- 顯示儲存的日期 -->
-            <div class="question">三件你一想到就會微笑的事情？</div> <!-- 顯示問題 -->
-        </div>
-        <div class="answer">1. 和朋友們分享快樂時光。2. 媽媽為我準備的美味點心。3. 雨天撐傘聽雨聲的寧靜時刻。</div> <!-- 顯示回答 -->
-    </div>
-    
+     <div class="entry-container">
+        <div id="question-container" class="question-container"></div>
+     </div>
     <script src="static/js/QuestionShow.js"></script>
 </body>
 </html>

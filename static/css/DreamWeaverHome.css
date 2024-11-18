@@ -1,13 +1,17 @@
+#mainTitle {
+    color: #f2f3fa; /* 字體顏色 */
+    z-index: index 5;
+}
 body{
     background-color: #5d6c89;
     position: relative;
-    overflow: hidden;
+    
 }
 .background{
     position: absolute;
     height: auto;
     width: 101vw;
-    z-index: index -1;
+    z-index: index -5;
 }
 .Send{
     position: absolute; /* 使用絕對定位 */

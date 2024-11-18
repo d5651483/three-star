@@ -9,8 +9,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/DreamWeaverHome.css') }}"> 
 </head>
 <body class="container">
-    <img src="static/images/織夢機主頁背景圓點.png" class="background">
+    
+    <!-- 標題區域 -->
+    <div class="headTitle">
+        <button id="mainTitle" onclick="BackHome()">D.I.D 地平線</button> <!-- 主要標題 -->
+        <button id="secondTitle" onclick="BackHome()">Do It, Dreamers</button> <!-- 副標題 -->
+    </div>
 
+    <img src="static/images/織夢機主頁背景圓點.png" class="background">
     <button class="Send" type="button" onclick="AddDreamWeaver()" > <!-- 新增按鈕 -->
         <img src="static/images/新增織夢機按鈕.png">
     </button>

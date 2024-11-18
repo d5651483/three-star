@@ -67,3 +67,5 @@ document.addEventListener('DOMContentLoaded', fetchDiaries);
 
 // 新增日記 -> 去別的地方
 function AddDiary() {window.location.href = "Dairy";}
+// 點擊標題 -> 回到主頁
+function BackHome() {window.location.href = "Homepage";}

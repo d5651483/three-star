@@ -6,34 +6,36 @@
 body {
     font-family: '源柔', sans-serif;
     background-color: #f2f3fa;
-    width: 100%;
     margin: 0; /* 移除預設邊距 */
 }
 
 /* 顯示紀錄區域 */
-.Show-container {
+.question-container {
     display: flex;
     flex-direction: column; /* 內容垂直排列 */
-    justify-content: center; /* 垂直居中 */
-    align-items: center; /* 水平居中 */
+    align-items: center; /* 子元素置左對齊 */
+    overflow-y: auto;
+}
+/* 單筆紀錄的框框樣式 */
+.question-entry {
     background-color: #dee3ee;
     border-radius: 30px;
-    padding: 15px;
-    margin: 10px auto; /* 水平居中容器 */
+    padding: 20px;
+    margin: 10px 0; /* 每個紀錄的間距 */
     width: 70vw;
-    overflow-y: auto; /* 垂直方向可滾動 */
 }
+
 
 /* 使用 Flexbox 讓日期和問題並排 */
 .date-and-question {
     display: flex; /* 開啟 Flexbox 佈局 */
-    justify-content: center; 
     align-items: center; /* 垂直置中對齊 */
     margin-bottom: 10px;
 }
 
 /* 日期樣式 */
 .date {
+    text-align: left;
     font-size: 1.4em;
     color: #5d6c89;
     margin-right: 50px; /* 調整與問題的間距 */
@@ -41,14 +43,15 @@ body {
 
 /* 問題樣式 */
 .question {
+    text-align: left;
     font-size: 1.3em;
     color: #5d6c89;
 }
 
 /* 回答樣式 */
 .answer {
-    font-size: 1em;
+    font-size: 1.5em;
     color: #91a1bf;
     margin-top: 15px;
-    text-align: center;
+    text-align: left;
 }

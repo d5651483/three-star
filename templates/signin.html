@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/signin.css') }}">
+
     <title>signin page</title>
 </head>
 
 <body>
     
+    <!-- 標題區域 -->
     <div class="headTitle">
-        <span id="mainTitle">D.I.D 地平線</span> <!-- 主要標題 -->
-        <span id="secondTitle">Do It, Dreamers</span> <!-- 副標題 -->
+        <button id="mainTitle" onclick="BackHome()">D.I.D 地平線</button> <!-- 主要標題 -->
+        <button id="secondTitle" onclick="BackHome()">Do It, Dreamers</button> <!-- 副標題 -->
     </div>
     
     <div class="Oval"></div> <!-- 標題下的線 -->
@@ -37,5 +39,6 @@
             </button>
         </div>  
     </div>
+    <script src="static/js/signin.js" defer></script> <!-- 導入 JavaScript 檔案 -->
 </body>
 </html>

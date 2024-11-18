@@ -60,3 +60,5 @@ function questionShower(data) {
 
 // 當頁面加載時自動獲取日記列表
 document.addEventListener('DOMContentLoaded', fetchQuestion);
+// 點擊標題 -> 回到主頁
+function BackHome() {window.location.href = "Homepage";}
