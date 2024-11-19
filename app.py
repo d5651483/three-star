@@ -5,7 +5,7 @@ from module.ai import AI_Manager
 # 建立 Flask 應用
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
-# 建立 Manager 實例
+# 建立 Manager 實例 
 diary_manager = DiaryManager()
 quest_manager = QuestManager()
 ai_manager = AI_Manager()
@@ -88,7 +88,7 @@ def get_diaries_route():
     
     return jsonify(diaries)
 
-# AI 回應
+# AI 回應ㄕ
 @app.route('/get_response', methods=['POST'])
 def get_response():
 
