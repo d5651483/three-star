@@ -217,7 +217,6 @@ class QuestManager(Manager):
         ]
 
         return formatted_questions
-
    
 class AIManager(Manager):
 
