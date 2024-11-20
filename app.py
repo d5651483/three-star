@@ -34,10 +34,7 @@ def add_answer():
     if not question or not answer: return jsonify({"error": "Title and content are required"}), 400
 
     # 新增日記
-    quest_manager.add_answer(
-        question,
-        answer
-    )
+    quest_manager.add_answer(answer)
 
     return jsonify({"message": "Question added successfully"}), 200
 

@@ -113,44 +113,44 @@ class QuestManager(Manager):
             CREATE TABLE IF NOT EXISTS questions (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 question TEXT NOT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                created_at TEXT
             )
             '''
         )
         
-        with open('static\\question\\question.json', 'r', encoding='utf-8') as file:
+        with open('static\\question\\questions.json', 'r', encoding='utf-8') as file:
             self.questions = json.load(file)
 
         self.count_questions = len(self.questions)
-        self.start_date = datetime.strptime("2024-09-01", "%Y-%m-%d")
+        self.start_date = datetime.strptime("2024-09-01", "%Y-%m-%d").date()
 
-    # 自動生成隨機問題
+    # 生成問題
     def generate_daily_question(self):
 
-        today = datetime.now().strftime('%Y-%m-%d')
+        today = datetime.today().date()
         conn = self.connect_db()
         cursor = conn.cursor()
 
         # 檢查今天是否已有問題
         cursor.execute("""
             SELECT * FROM questions
-            WHERE DATE(created_at) = DATE('now') 
+            WHERE created_at = ?
             ORDER BY created_at DESC LIMIT 1
-        """)
+        """, (today,))
 
         question = cursor.fetchone()
 
         # 如果今天沒有問題，則生成一個新的問題
         if not question:
 
-            question_number = (self.start_date - today) % self.count_questions # 按照時間循環
+            question_number = (today - self.start_date).days % self.count_questions # 按照時間循環
 
             ori_question = self.questions[str(question_number+1)] # 取得題目
 
             # 寫入題目
             cursor.execute(
-                'INSERT INTO questions question VALUES ?',
-                ori_question
+                'INSERT INTO questions (question, created_at) VALUES (?, ?)',
+                (ori_question, today)
             )
             conn.commit()
 
@@ -179,7 +179,7 @@ class QuestManager(Manager):
         question_id = cursor.fetchone()[0]
         
         cursor.execute('''
-            INSERT INTO answers (question, answer)
+            INSERT INTO answers (question_id, answer)
             VALUES (?, ?)
         ''', (question_id, answer))
         
@@ -212,7 +212,7 @@ class QuestManager(Manager):
         ]
 
         return formatted_questions
-    
+   
 class AIManager(Manager):
 
     def __init__(self) -> None:
