@@ -60,7 +60,7 @@ class DiaryManager(Manager):
         conn.commit()
         conn.close()
 
-        return {"message": "日記已儲存！"}
+        return {"message": "diary has save"}
 
     # 取得日記
     def get_all_diaries(self):
@@ -186,7 +186,7 @@ class QuestManager(Manager):
         conn.commit()
         conn.close()
 
-        return {"message": "問題已儲存！"}
+        return {"message": "question has save"}
 
     # 取得問題
     def get_all_answers(self):
@@ -224,10 +224,45 @@ class AIManager(Manager):
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 author TEXT NOT NULL,
                 content TEXT NOT NULL,
-                sent_at TEXT
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
             '''
         )
     
-    def write(self):
-        pass
+    def write(self, author, content):
+        
+        conn = self.connect_db()
+        cursor = conn.cursor()
+        
+        cursor.execute('''
+            INSERT INTO ai_record (author, content)
+            VALUES (?, ?)
+        ''', (author, content))
+        
+        conn.commit()
+        conn.close()
+
+        return {"message": "record has save"}
+    
+    def readRecord(self):
+
+        conn = self.connect_db()
+        cursor = conn.cursor()
+        
+        cursor.execute('SELECT * FROM ai_record ORDER BY created_at DESC')  # 按照創建時間排序
+        ai_records = cursor.fetchall()
+        
+        conn.close()
+
+        # 轉成陣列
+        formatted_ai_records = [
+            {
+                'id': ai_record[0],
+                'author': ai_record[1],
+                'content': ai_record[2],
+                'created_at': ai_record[3]
+            }
+            for ai_record in ai_records
+        ]
+
+        return formatted_ai_records
