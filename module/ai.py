@@ -36,12 +36,21 @@ class AI_Talker:
 
         if response.status_code == 200 and "choices" in response_json:
             bot_response = response_json["choices"][0]["message"]["content"]
-            self.ai_mananger.write('織夢機', bot_response)
+            self.ai_mananger.write('Respondent', bot_response)
             return {"response": bot_response}
         else:
             return {"response": "Sorry, I couldn't process your request."}
 
     def generate_content(self, user_input) -> str:
+
+        records = self.ai_mananger.readRecord()
+
+        memery = "Ask Record: \n"
+
+        for record in records:
+
+            memery += f"{record['author']} : {record['content']} \n"
+
         satir_prompt = f"""
             Situation: The user asks: "{user_input}".
             Attitude: Respond in an informative, engaging, and clear way.
@@ -49,5 +58,5 @@ class AI_Talker:
             Intent: Generate a helpful and relevant answer.
             Response:
         """
-        return satir_prompt
+        return memery + satir_prompt
 
