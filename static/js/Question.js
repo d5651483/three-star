@@ -25,7 +25,7 @@ async function submitQuestionAnswer() {
 
     try {
         // 使用 fetch API 發送 POST 請求
-        const response = await fetch('/add-question', {
+        const response = await fetch('/add-answer', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json', // 設置請求類型為 JSON

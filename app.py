@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from module.db import DiaryManager, QuestManager
-from module.ai import AI_Manager
+from module.ai import AI_Talker
 
 # 建立 Flask 應用
 app = Flask(__name__, static_folder='static', template_folder='templates')
@@ -8,7 +8,7 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 # 建立 Manager 實例 
 diary_manager = DiaryManager()
 quest_manager = QuestManager()
-ai_manager = AI_Manager()
+ai_manager = AI_Talker()
 
 # 獲取今天的問題
 @app.route('/genarate-question', methods=['GET'])
@@ -19,8 +19,8 @@ def genarate_question():
     return jsonify(question)
 
 # 新增問題
-@app.route('/add-question', methods=['POST'])
-def add_question():
+@app.route('/add-answer', methods=['POST'])
+def add_answer():
 
     data = request.json
 
@@ -34,7 +34,7 @@ def add_question():
     if not question or not answer: return jsonify({"error": "Title and content are required"}), 400
 
     # 新增日記
-    quest_manager.add_question(
+    quest_manager.add_answer(
         question,
         answer
     )
@@ -42,10 +42,10 @@ def add_question():
     return jsonify({"message": "Question added successfully"}), 200
 
 # 取得問題紀錄
-@app.route('/get-questions', methods=['GET'])
-def get_question():
+@app.route('/get-answers', methods=['GET'])
+def get_answers():
 
-    questions = quest_manager.get_all_question()
+    questions = quest_manager.get_all_answers()
 
     return jsonify(questions)
 
@@ -88,7 +88,7 @@ def get_diaries_route():
     
     return jsonify(diaries)
 
-# AI 回應ㄕ
+# AI 回應
 @app.route('/get_response', methods=['POST'])
 def get_response():
 

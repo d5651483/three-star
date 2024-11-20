@@ -2,7 +2,7 @@ from os import getenv
 from dotenv import load_dotenv
 import requests  # 使用 requests 库來發送 HTTP 請求
 
-class AI_Manager:
+class AI_Talker:
 
     def __init__(self) -> None:
         # 使用 OpenAI API 的參數

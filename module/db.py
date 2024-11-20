@@ -6,11 +6,13 @@ from datetime import datetime
 class Manager:
 
     # 建立資料庫
-    def __init__(self, db_name, rule):
+    def __init__(self, db_name : str):
 
         db_path = "database"
 
         self.db_name = os.path.join(db_path, db_name)
+
+    def createTable(self, rule : str):
 
         conn = self.connect_db()
         cursor = conn.cursor()
@@ -28,8 +30,9 @@ class DiaryManager(Manager):
 
     # 創建資料表
     def __init__(self):
-        super().__init__(
-            "Dairy.db", 
+        super().__init__("Dairy.db")
+        
+        self.createTable(
             ''' 
             CREATE TABLE IF NOT EXISTS diaries (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -41,7 +44,7 @@ class DiaryManager(Manager):
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
             '''
-            )
+        )
 
     # 新增日記
     def add_diary(self, title, content, answer1, answer2, answer3):
@@ -92,30 +95,30 @@ class QuestManager(Manager):
 
     def __init__(self):
 
-        super().__init__(
-            "Question.db", 
+        super().__init__("Question.db")
+        
+        self.createTable(
             '''
-            CREATE TABLE IF NOT EXISTS questions (
+            CREATE TABLE IF NOT EXISTS answers (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                question TEXT NOT NULL,
+                question_id INTEGER NOT NULL,
                 answer TEXT NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
             '''
-            )
-        
-        self.quest_record = Manager(
-            "Quest_Record.db", 
+        )
+
+        self.createTable(
             '''
-            CREATE TABLE IF NOT EXISTS quest_record (
+            CREATE TABLE IF NOT EXISTS questions (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 question TEXT NOT NULL,
-                date DATE NOT NULL
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
             '''
-            )
+        )
         
-        with open('static\question\question.json', 'r', encoding='utf-8') as file:
+        with open('static\\question\\question.json', 'r', encoding='utf-8') as file:
             self.questions = json.load(file)
 
         self.count_questions = len(self.questions)
@@ -125,11 +128,16 @@ class QuestManager(Manager):
     def generate_daily_question(self):
 
         today = datetime.now().strftime('%Y-%m-%d')
-        conn = self.quest_record.connect_db()
+        conn = self.connect_db()
         cursor = conn.cursor()
 
         # 檢查今天是否已有問題
-        cursor.execute("SELECT * FROM quest_record WHERE date = ?", (today,))
+        cursor.execute("""
+            SELECT * FROM questions
+            WHERE DATE(created_at) = DATE('now') 
+            ORDER BY created_at DESC LIMIT 1
+        """)
+
         question = cursor.fetchone()
 
         # 如果今天沒有問題，則生成一個新的問題
@@ -137,34 +145,43 @@ class QuestManager(Manager):
 
             question_number = (self.start_date - today) % self.count_questions # 按照時間循環
 
-            ori_question = self.questions[str(question_number+1)]
+            ori_question = self.questions[str(question_number+1)] # 取得題目
 
-            cursor.execute("""
-                INSERT INTO quest_record (question, date)
-                VALUES (?, ?)
-            """, (ori_question, today))
-
+            # 寫入題目
+            cursor.execute(
+                'INSERT INTO questions question VALUES ?',
+                ori_question
+            )
             conn.commit()
-            question = {'question': ori_question, 'date': today}
+
+            question = {'question': ori_question}
 
         else:
 
-            question = {'question': question['question'], 'date': question['date']}
+            question = {'question': question[1]}
         
         conn.close()
 
         return question
     
-    # 新增問題
-    def add_question(self, question, answer):
+    # 新增回答
+    def add_answer(self, answer):
 
         conn = self.connect_db()
         cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT * FROM questions
+            WHERE DATE(created_at) = DATE('now') 
+            ORDER BY created_at DESC LIMIT 1
+        """)
+
+        question_id = cursor.fetchone()[0]
         
-        cursor.execute(''' 
-            INSERT INTO questions (question, answer)
+        cursor.execute('''
+            INSERT INTO answers (question, answer)
             VALUES (?, ?)
-        ''', (question, answer))
+        ''', (question_id, answer))
         
         conn.commit()
         conn.close()
@@ -172,23 +189,45 @@ class QuestManager(Manager):
         return {"message": "問題已儲存！"}
 
     # 取得問題
-    def get_all_question(self):
+    def get_all_answers(self):
 
         conn = self.connect_db()
         cursor = conn.cursor()
         
+        cursor.execute('SELECT * FROM answers ORDER BY created_at DESC') # 按照創建時間排序
+        answers = cursor.fetchall()
+
         cursor.execute('SELECT * FROM questions ORDER BY created_at DESC') # 按照創建時間排序
         questions = cursor.fetchall()
-        
+
         conn.close()
 
         formatted_questions = [
             {
-                'question' : question[1],
-                'answer' : question[2],
-                'created_at': question[3]
+                'question' : questions[answer[1]][1],
+                'answer' : answer[2],
+                'created_at': answer[3]
             }
-            for question in questions
+            for answer in answers
         ]
 
         return formatted_questions
+    
+class AIManager(Manager):
+
+    def __init__(self) -> None:
+        super().__init__("AI.db")
+        
+        self.createTable(
+            '''
+            CREATE TABLE IF NOT EXISTS ai_record (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                author TEXT NOT NULL,
+                content TEXT NOT NULL,
+                sent_at TEXT
+            )
+            '''
+        )
+    
+    def write(self):
+        pass

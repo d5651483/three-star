@@ -1,6 +1,6 @@
 function fetchQuestion() {
 
-    fetch('/get-questions')
+    fetch('/get-answers')
   
         .then(response => {
 
