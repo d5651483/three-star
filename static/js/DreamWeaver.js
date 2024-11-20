@@ -26,7 +26,7 @@ function addMessage(sender, message) {
 
 async function getBotResponse(userInput) {
     try {
-        const response = await fetch('/get_response', {
+        const response = await fetch('/get-ai-response', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -40,4 +40,5 @@ async function getBotResponse(userInput) {
         return "Sorry, there was an error processing your request.";
     }
 }
+
 function back() {window.location.href = "DreamWeaverHome";}

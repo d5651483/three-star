@@ -241,8 +241,6 @@ class AIManager(Manager):
         
         conn.commit()
         conn.close()
-
-        return {"message": "record has save"}
     
     def readRecord(self):
 

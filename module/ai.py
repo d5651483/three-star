@@ -1,6 +1,7 @@
 from os import getenv
 from dotenv import load_dotenv
 import requests  # 使用 requests 库來發送 HTTP 請求
+from module.db import AIManager
 
 class AI_Talker:
 
@@ -10,7 +11,12 @@ class AI_Talker:
         self.openai_api_key = getenv("OPENAI_API_KEY")
         self.api_url = getenv("APIURL")
 
+        self.ai_mananger = AIManager()
+
     def get_response(self, user_input) -> dict:
+        
+        self.ai_mananger.write('User', user_input)
+
         satir_prompt = self.generate_content(user_input)
 
         # 發送請求至 OpenAI API
@@ -30,6 +36,7 @@ class AI_Talker:
 
         if response.status_code == 200 and "choices" in response_json:
             bot_response = response_json["choices"][0]["message"]["content"]
+            self.ai_mananger.write('織夢機', bot_response)
             return {"response": bot_response}
         else:
             return {"response": "Sorry, I couldn't process your request."}

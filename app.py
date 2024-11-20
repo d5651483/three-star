@@ -11,7 +11,7 @@ quest_manager = QuestManager()
 ai_manager = AI_Talker()
 
 # 獲取今天的問題
-@app.route('/genarate-question', methods=['GET'])
+@app.route('/genarate-question', methods= ['GET'])
 def genarate_question():
 
     question = quest_manager.generate_daily_question()
@@ -86,7 +86,7 @@ def get_diaries_route():
     return jsonify(diaries)
 
 # AI 回應
-@app.route('/get_response', methods=['POST'])
+@app.route('/get-ai-response', methods=['POST'])
 def get_response():
 
     user_input = request.json.get("user_input", "")
