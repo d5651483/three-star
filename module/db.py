@@ -190,28 +190,34 @@ class QuestManager(Manager):
 
     # 取得問題
     def get_all_answers(self):
-
+        
         conn = self.connect_db()
         cursor = conn.cursor()
         
-        cursor.execute('SELECT * FROM answers ORDER BY created_at DESC') # 按照創建時間排序
+        # 獲取所有問題和答案，按創建時間排序
+        cursor.execute('SELECT * FROM answers ORDER BY created_at DESC')
         answers = cursor.fetchall()
 
-        cursor.execute('SELECT * FROM questions ORDER BY created_at DESC') # 按照創建時間排序
+        cursor.execute('SELECT * FROM questions ORDER BY created_at DESC')
         questions = cursor.fetchall()
 
         conn.close()
 
+        # 建立問題 ID 與問題內容的映射表
+        question_map = {question[0]: question[1] for question in questions}
+
+        # 格式化答案
         formatted_questions = [
             {
-                'question' : questions[answer[1]][1],
-                'answer' : answer[2],
+                'question': question_map.get(answer[1], 'Unknown Question'),  # 根據問題 ID 查找
+                'answer': answer[2],
                 'created_at': answer[3]
             }
             for answer in answers
         ]
 
         return formatted_questions
+
    
 class AIManager(Manager):
 
