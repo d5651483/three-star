@@ -118,7 +118,7 @@ class QuestManager(Manager):
             '''
         )
         
-        with open('static\\question\\questions.json', 'r', encoding='utf-8') as file:
+        with open(os.path.join('static', 'question', 'questions.json'), 'r', encoding='utf-8') as file:
             self.questions = json.load(file)
 
         self.count_questions = len(self.questions)
