@@ -19,7 +19,7 @@ function addMessage(sender, message) {
     const chatBox = document.getElementById("chat-box");
     const messageDiv = document.createElement("div");
     messageDiv.classList.add("message", sender);
-    messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+    messageDiv.innerHTML = `${message}`;
     chatBox.appendChild(messageDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
@@ -41,4 +41,24 @@ async function getBotResponse(userInput) {
     }
 }
 
+function loadRecord() {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // 取得特定參數
+    const paramValue = urlParams.get('num_table'); // 假設網址是 ?key=value
+
+    fetch(`/get-talk-record?num_table=${paramValue}`)
+        .then(response => response.json())
+        .then(data => {
+
+            console.log('Received array:', data); // 檢查收到的陣列
+
+            data.forEach(record => {addMessage(record.author, record.content);});
+        })
+        .catch(error => console.error('Error:', error));
+
+}
+
 function back() {window.location.href = "DreamWeaverHome";}
+
+loadRecord()

@@ -94,6 +94,23 @@ def get_response():
     
     return jsonify(response)
 
+# 對話紀錄
+@app.route('/get-talk-record', methods=['GET'])
+def start_talk():
+
+    num = request.args.get('num_table', type=int)
+    response = ai_manager.ai_mananger.start_talk(num)
+    
+    return jsonify(response)
+
+# 對話數量
+@app.route('/get-talk-num', methods=['GET'])
+def len_table():
+
+    response = ai_manager.ai_mananger.len_table()
+    
+    return jsonify({'response': response})
+
 # 路徑與 html 名稱
 routes_name = {
     '/Homepage': 'Homepage.html',

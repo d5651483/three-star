@@ -15,7 +15,7 @@ class AI_Talker:
 
     def get_response(self, user_input) -> dict:
         
-        self.ai_mananger.write('提問', user_input)
+        self.ai_mananger.write('User', user_input)
 
         satir_prompt = self.generate_content(user_input)
 
@@ -36,14 +36,14 @@ class AI_Talker:
 
         if response.status_code == 200 and "choices" in response_json:
             bot_response = response_json["choices"][0]["message"]["content"]
-            self.ai_mananger.write('回答', bot_response)
+            self.ai_mananger.write('織夢機', bot_response)
             return {"response": bot_response}
         else:
             return {"response": "Sorry, I couldn't process your request."}
 
     def generate_content(self, user_input) -> str:
 
-        records = self.ai_mananger.readRecord()
+        records = self.ai_mananger.lessRecord()
 
         memery = "回答紀錄 \n"
 

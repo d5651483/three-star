@@ -221,11 +221,44 @@ class QuestManager(Manager):
 class AIManager(Manager):
 
     def __init__(self) -> None:
+
         super().__init__("AI.db")
-        
+
         self.createTable(
             '''
-            CREATE TABLE IF NOT EXISTS ai_record (
+            CREATE TABLE IF NOT EXISTS table_record (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                table_name TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+            '''
+        )
+
+        self.record_limit = 10
+    
+    def start_talk(self, chat_num) -> list:
+
+        if chat_num == 0 : self.new_talk(); return []
+
+        conn = self.connect_db()
+        cursor = conn.cursor()
+
+        cursor.execute('SELECT * FROM table_record ORDER BY created_at DESC LIMIT 1 OFFSET ?', (chat_num-1,))
+
+        self.table_name = cursor.fetchone()['table_name']
+
+        conn.commit()
+        conn.close()
+
+        return self.allRecord(self.table_name)
+    
+    def new_talk(self):
+
+        self.table_name = f"table_{int(datetime.now().timestamp())}"
+        
+        self.createTable(
+            f'''
+            CREATE TABLE IF NOT EXISTS {self.table_name} (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 author TEXT NOT NULL,
                 content TEXT NOT NULL,
@@ -234,27 +267,36 @@ class AIManager(Manager):
             '''
         )
 
-        self.record_limit = 10
+        conn = self.connect_db()
+        cursor = conn.cursor()
+        
+        cursor.execute(f'INSERT INTO table_record (table_name) VALUES (?)', (self.table_name,))
+        
+        conn.commit()
+        conn.close()
     
     def write(self, author, content):
         
         conn = self.connect_db()
         cursor = conn.cursor()
         
-        cursor.execute('''
-            INSERT INTO ai_record (author, content)
+        cursor.execute(f'''
+            INSERT INTO {self.table_name} (author, content)
             VALUES (?, ?)
         ''', (author, content))
         
         conn.commit()
         conn.close()
     
-    def readRecord(self):
+    def lessRecord(self, table_name=None, record_limit=None):
+
+        if table_name is None : table_name = self.table_name
+        if record_limit is None : record_limit = self.record_limit
 
         conn = self.connect_db()
         cursor = conn.cursor()
         
-        cursor.execute('SELECT * FROM ai_record ORDER BY created_at DESC LIMIT ?', (self.record_limit,))  # 按照創建時間排序
+        cursor.execute(f'SELECT * FROM {table_name} ORDER BY created_at DESC LIMIT ?', (record_limit,))  # 按照創建時間排序
         ai_records = cursor.fetchall()
         
         conn.close()
@@ -271,3 +313,43 @@ class AIManager(Manager):
         ]
 
         return formatted_ai_records
+    
+    def allRecord(self, table_name):
+
+        conn = self.connect_db()
+        cursor = conn.cursor()
+        
+        cursor.execute(f'SELECT * FROM {table_name} ORDER BY created_at DESC')  # 按照創建時間排序
+        ai_records = cursor.fetchall()
+        
+        conn.close()
+
+        # 轉成陣列
+        formatted_ai_records = [
+            {
+                'id': ai_record[0],
+                'author': ai_record[1],
+                'content': ai_record[2],
+                'created_at': ai_record[3]
+            }
+            for ai_record in ai_records
+        ]
+
+        return formatted_ai_records
+    
+    def len_table(self):
+
+        conn = self.connect_db()
+        cursor = conn.cursor()
+
+        # 執行 SQL 查詢，計算某個表中的數據數量
+        cursor.execute("SELECT COUNT(*) table_record")  # 替換為你的表名
+        count = cursor.fetchone()[0]  # 取得結果中的數量
+
+        conn.close()
+
+        # 根據數量返回 3 或實際數量
+        if count > 3:
+            return 3
+        else:
+            return count

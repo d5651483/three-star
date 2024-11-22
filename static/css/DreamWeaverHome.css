@@ -10,7 +10,7 @@ body{
 .background{
     position: absolute;
     height: auto;
-    width: 101vw;
+    width: 100vw;
     z-index: index -5;
 }
 .Send{
@@ -28,5 +28,23 @@ body{
 .Send img {
     width: 200px; /* 可根據需要調整按鈕圖片大小 */
     height: auto; /* 確保按鈕圖片保持比例 */
+}
+
+#button_0 {
     margin:170px 0px 0px 150px;
+}
+
+#button_1 {
+    margin:50px 0px 0px 400px;
+    /* display: none */
+}
+
+#button_2 {
+    margin:70px 0px 0px 750px;
+    /* display: none */
+}
+
+#button_3 {
+    margin:300px 0px 0px 1000px;
+    /* display: none */
 }
