@@ -319,7 +319,7 @@ class AIManager(Manager):
         conn = self.connect_db()
         cursor = conn.cursor()
         
-        cursor.execute(f'SELECT * FROM {table_name} ORDER BY created_at DESC')  # 按照創建時間排序
+        cursor.execute(f'SELECT * FROM {table_name}')  # 按照創建時間排序
         ai_records = cursor.fetchall()
         
         conn.close()
