@@ -234,7 +234,7 @@ class AIManager(Manager):
             '''
         )
 
-        self.record_limit = 10
+        self.record_limit = 100
     
     def start_talk(self, chat_num) -> list:
 
