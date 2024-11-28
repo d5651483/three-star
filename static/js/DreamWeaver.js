@@ -18,9 +18,13 @@ document.getElementById("user-input").addEventListener("keydown", function (even
 });
 
 async function handleUserInput() {
+
     const userInput = document.getElementById("user-input").value;
     if (userInput.trim() === "") return;
-
+    
+    // 清空輸入框
+    document.getElementById("user-input").value = "";
+    
     // 在 chat-box 顯示用戶輸入
     addMessage("User", userInput);
 
@@ -29,9 +33,6 @@ async function handleUserInput() {
 
     // 在 chat-box 顯示機器人回應
     addMessage("織夢機", response);
-
-    // 清空輸入框
-    document.getElementById("user-input").value = "";
 }
 
 function addMessage(sender, message) {
