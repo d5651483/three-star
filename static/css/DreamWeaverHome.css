@@ -13,6 +13,18 @@ body{
     height: auto;
     z-index: index -5;
 }
+
+/* 隱藏捲軸但保留滾動功能 */
+.hidden-scroll {
+    overflow: auto;
+    scrollbar-width: none; /* 適用於 Firefox */
+    -ms-overflow-style: none; /* 適用於 IE 和舊版 Edge */
+}
+
+.hidden-scroll::-webkit-scrollbar {
+    display: none; /* 適用於 Chrome、Safari 和新 Edge */
+}
+
 .Send{
     position: absolute; /* 使用絕對定位 */
     cursor: pointer; /* 鼠標變為手型 */
@@ -48,15 +60,3 @@ body{
     margin:300px 0px 0px 1000px;
     /* display: none */
 }
-
-/* 隱藏捲軸但保留滾動功能 */
-.hidden-scroll {
-    overflow: auto;
-    scrollbar-width: none; /* 適用於 Firefox */
-    -ms-overflow-style: none; /* 適用於 IE 和舊版 Edge */
-  }
-  
-  .hidden-scroll::-webkit-scrollbar {
-    display: none; /* 適用於 Chrome、Safari 和新 Edge */
-  }
-  
