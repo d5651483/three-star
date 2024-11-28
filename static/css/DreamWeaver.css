@@ -108,3 +108,27 @@ button img {
     align-self: flex-end; /* 靠右對齊 */
     color: #5d6c89;
 }
+
+/* 整體滾動條樣式 */
+::-webkit-scrollbar {
+    width: 12px; /* 寬度 */
+    height: 12px; /* 高度（橫向滾動條） */
+}
+
+/* 滾動條軌道 */
+::-webkit-scrollbar-track {
+    background: #f4f4f4; /* 背景色 */
+    border-radius: 6px; /* 圓角 */
+}
+
+/* 滾動條的滑塊 */
+::-webkit-scrollbar-thumb {
+    background: #888; /* 顏色 */
+    border-radius: 6px; /* 圓角 */
+    border: 3px solid #f4f4f4; /* 與軌道顏色相配的邊框 */
+}
+
+/* 滑塊懸停時 */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* 顏色變深 */
+}
