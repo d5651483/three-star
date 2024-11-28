@@ -1,3 +1,22 @@
+let isComposing = false;
+
+// 監聽輸入法開始組字
+document.getElementById("user-input").addEventListener("compositionstart", () => {
+    isComposing = true;
+});
+
+// 監聽輸入法結束組字
+document.getElementById("user-input").addEventListener("compositionend", () => {
+    isComposing = false;
+});
+
+// 監聽鍵盤按鍵事件
+document.getElementById("user-input").addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && !isComposing) {
+        handleUserInput(); // 呼叫傳送功能
+    }
+});
+
 async function handleUserInput() {
     const userInput = document.getElementById("user-input").value;
     if (userInput.trim() === "") return;
@@ -61,4 +80,4 @@ function loadRecord() {
 
 function back() {window.location.href = "DreamWeaverHome";}
 
-loadRecord()
+loadRecord();
